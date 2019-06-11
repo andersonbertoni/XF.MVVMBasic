@@ -13,10 +13,17 @@ namespace XF.MVVMBasic.ViewModel
         public string Nome { get; set; }
         public string Email { get; set; }
 
-        public static List<Aluno> ListaAlunos { get; set; }
+        public static List<Aluno> ListaAlunos { get; set; }        
 
         #endregion
-                
+
+        public AlunoViewModel()
+        {
+            this.RM = "";
+            this.Nome = "";
+            this.Email = "";
+        }
+
         public AlunoViewModel(Aluno aluno)
         {
             this.RM = aluno.RM;
@@ -34,6 +41,9 @@ namespace XF.MVVMBasic.ViewModel
             //    Nome = "Anderson Silva",
             //    Email = "anderson@ufc.com"
             //};
+
+            if (ListaAlunos == null)
+                ListaAlunos = new List<Aluno>();
 
             return ListaAlunos;
         }

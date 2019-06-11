@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:XF.MVVMBasic.Model"
+             xmlns:viewModel="clr-namespace:XF.MVVMBasic.ViewModel"
+             x:Class="XF.MVVMBasic.View.NovoAlunoView">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding model:Aluno}">
+            <StackLayout BindingContext="{Binding model:}">
+                <Label Text="RM" />
+                <Entry Text="{Binding RM}" />
+                <Label Text="Nome" />
+                <Entry Text="{Binding Nome}" />
+                <Label Text="Email" />
+                <Entry Text="{Binding Email}" />
+            </StackLayout>
+            <StackLayout BindingContext="{Binding viewModel:AlunoView}">
+                <Button Text="Salvar"  />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
