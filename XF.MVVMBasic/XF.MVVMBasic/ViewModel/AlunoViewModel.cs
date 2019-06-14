@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 using XF.MVVMBasic.Model;
+using XF.MVVMBasic.View;
 
 namespace XF.MVVMBasic.ViewModel
 {
@@ -13,7 +17,15 @@ namespace XF.MVVMBasic.ViewModel
         public string Nome { get; set; }
         public string Email { get; set; }
 
-        public static List<Aluno> ListaAlunos { get; set; }        
+        public static ObservableCollection<Aluno> ListaAlunos { get; set; }
+        
+        public ICommand IncluirAluno {get;}
+        public ICommand SalvarAluno {
+            get
+            {
+                return new Command<AlunoViewModel>((x) => btnSalvarAluno_Clicked(x));
+            }
+        }
 
         #endregion
 
@@ -22,6 +34,7 @@ namespace XF.MVVMBasic.ViewModel
             this.RM = "";
             this.Nome = "";
             this.Email = "";
+            IncluirAluno = new Command(btnIncluirAluno_Clicked);
         }
 
         public AlunoViewModel(Aluno aluno)
@@ -32,7 +45,7 @@ namespace XF.MVVMBasic.ViewModel
             
         }
 
-        public static List<Aluno> GetAluno()
+        public static ObservableCollection<Aluno> GetAluno()
         {
             //var aluno = new Aluno()
             //{
@@ -43,26 +56,37 @@ namespace XF.MVVMBasic.ViewModel
             //};
 
             if (ListaAlunos == null)
-                ListaAlunos = new List<Aluno>();
+                ListaAlunos = new ObservableCollection<Aluno>();
 
             return ListaAlunos;
         }
 
-        public static bool InsertAluno(Aluno aluno)
+        public static void InsertAluno(Aluno aluno)
+        {         
+            if (ListaAlunos == null)
+                ListaAlunos = new ObservableCollection<Aluno>();
+
+            ListaAlunos.Add(aluno);            
+        }
+
+        private void btnIncluirAluno_Clicked()
         {
-            try
-            {
-                if (ListaAlunos == null)
-                    ListaAlunos = new List<Aluno>();
+            App.Current.MainPage.Navigation.PushAsync(new NovoAlunoView() { BindingContext = new AlunoViewModel() });
+        }
 
-                ListaAlunos.Add(aluno);
-
-                return true;
-            }
-            catch
+        private void btnSalvarAluno_Clicked(AlunoViewModel alunoView)
+        {
+            Aluno aluno = new Aluno()
             {
-                return false;
-            }
+                Id = Guid.NewGuid(),
+                RM = alunoView.RM,
+                Nome = alunoView.Nome,
+                Email = alunoView.Email
+            };
+
+            InsertAluno(aluno);
+
+            App.Current.MainPage.Navigation.PushAsync(new AlunoView() { BindingContext = new AlunoViewModel() });
         }
     }
 }

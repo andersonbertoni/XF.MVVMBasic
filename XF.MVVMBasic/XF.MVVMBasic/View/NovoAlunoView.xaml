@@ -5,17 +5,22 @@
              xmlns:viewModel="clr-namespace:XF.MVVMBasic.ViewModel"
              x:Class="XF.MVVMBasic.View.NovoAlunoView">
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding model:Aluno}">
-            <StackLayout BindingContext="{Binding model:}">
-                <Label Text="RM" />
-                <Entry Text="{Binding RM}" />
-                <Label Text="Nome" />
-                <Entry Text="{Binding Nome}" />
-                <Label Text="Email" />
-                <Entry Text="{Binding Email}" />
+        <StackLayout>
+            <StackLayout>                
+                <Entry Text="{Binding RM}" Placeholder="Informe o RM" x:Name="txtRM"/>                
+                <Entry Text="{Binding Nome}"  Placeholder="Informe o Nome" x:Name="txtNome" />                
+                <Entry Text="{Binding Email}" Placeholder="Informe o E-mail" x:Name="txtEmail" />
             </StackLayout>
-            <StackLayout BindingContext="{Binding viewModel:AlunoView}">
-                <Button Text="Salvar"  />
+            <StackLayout>
+                <Button Text="Salvar" Command="{Binding SalvarAluno}" CommandParameter="{Binding .}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding Source={x:Reference txtNome}, Path=Text.Length}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="BackgroundColor" Value="#AAAAAA" />                            
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -11,10 +11,16 @@
                         <ViewCell>
                             <TableView>
                                 <TableRoot>
-                                    <TableSection Title="Aluno">                                        
-                                        <TextCell Text="{Binding Nome}" />
-                                        <TextCell Text="{Binding RM}" />
-                                        <TextCell Text="{Binding Email}" />
+                                    <TableSection Title="Aluno">
+                                        <ViewCell>
+                                            <Label Text="{Binding Nome}" />
+                                        </ViewCell>
+                                        <ViewCell>
+                                            <Label Text="{Binding RM}" />
+                                        </ViewCell>
+                                        <ViewCell>
+                                            <Label Text="{Binding Email}" />
+                                        </ViewCell>                                        
                                     </TableSection>
                                 </TableRoot>
                             </TableView>                            
@@ -22,7 +28,7 @@
                     </DataTemplate>                    
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Incluir Aluno" />
+            <Button Text="Incluir Aluno" x:Name="btnIncluirAluno" Command="{Binding IncluirAluno}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.MVVMBasic.ViewModel;
 
 namespace XF.MVVMBasic.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NovoAlunoView : ContentPage
 	{
-		public NovoAlunoView ()
+        AlunoViewModel vmAluno; 
+
+        public NovoAlunoView ()
 		{
-			InitializeComponent ();
+            vmAluno = new AlunoViewModel();
+            BindingContext = vmAluno;
+            InitializeComponent();
 		}
 	}
 }

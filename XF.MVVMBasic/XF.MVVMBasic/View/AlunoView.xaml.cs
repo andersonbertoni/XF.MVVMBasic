@@ -22,6 +22,6 @@ namespace XF.MVVMBasic.View
             InitializeComponent();
 
             grdAlunos.ItemsSource = AlunoViewModel.GetAluno();
-        }
+        }        
     }
 }
