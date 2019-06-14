@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -23,7 +24,15 @@ namespace XF.MVVMBasic.ViewModel
         public ICommand SalvarAluno {
             get
             {
-                return new Command<AlunoViewModel>((x) => btnSalvarAluno_Clicked(x));
+                return new Command<AlunoViewModel>((aluno) => btnSalvarAluno_Clicked(aluno));
+            }
+        }
+
+        public ICommand RemoverAluno
+        {
+            get
+            {
+                return new Command<Guid>((guid) => btnRemoverAluno_Click(guid));
             }
         }
 
@@ -87,6 +96,17 @@ namespace XF.MVVMBasic.ViewModel
             InsertAluno(aluno);
 
             App.Current.MainPage.Navigation.PushAsync(new AlunoView() { BindingContext = new AlunoViewModel() });
+        }
+
+        private void btnRemoverAluno_Click(Guid guid)
+        {
+
+            var alunoExcluir = (from x in ListaAlunos
+                         where x.Id == guid
+                         select x).FirstOrDefault();
+
+            if (alunoExcluir != null)
+                ListaAlunos.Remove(alunoExcluir);
         }
     }
 }

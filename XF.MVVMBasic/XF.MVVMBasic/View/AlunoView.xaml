@@ -9,21 +9,19 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <TableView>
-                                <TableRoot>
-                                    <TableSection Title="Aluno">
-                                        <ViewCell>
-                                            <Label Text="{Binding Nome}" />
-                                        </ViewCell>
-                                        <ViewCell>
-                                            <Label Text="{Binding RM}" />
-                                        </ViewCell>
-                                        <ViewCell>
-                                            <Label Text="{Binding Email}" />
-                                        </ViewCell>                                        
-                                    </TableSection>
-                                </TableRoot>
-                            </TableView>                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.2*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.1*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Id}" x:Name="lblId" IsVisible="False" />
+                                <Label Text="{Binding Nome}" x:Name="lblNome" />
+                                <Label Text="{Binding RM}" Grid.Column="1" x:Name="lblRM" />
+                                <Label Text="{Binding Email}" Grid.Column="2" x:Name="lblEmail" />
+                                <Button Text="X" BindingContext="{Binding Source={x:Reference grdAlunos}, Path=BindingContext}" x:Name="btnRemoverAluno" Command="{Binding RemoverAluno}" CommandParameter="{Binding Source={Reference lblId}, Path=Text}" Grid.Column="3" />
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>                    
                 </ListView.ItemTemplate>
